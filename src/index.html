@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Mesto</title>
+    </head>
+    <body>
+        <div class="page">
+            <header class="header">
+                <img src="<%=require('./images/logo.svg')%>" alt="логотип" class="header__logo" />
+            </header>
+            <main class="main">
+                <section class="profile">
+                    <div class="profile__block">
+                        <div class="profile__avatar"></div>
+                        <div class="profile__info">
+                            <div class="profile__top">
+                                <h1 class="profile__name">Катерина Козлова</h1>
+                                <button aria-label="редактировать" type="button" class="button button_type_open profile__correct-button "></button>
+                            </div>
+                            <p class="profile__description">Путешественник</p>
+                        </div>
+                    </div>
+                    <button aria-label="добавить" type="button" class="button button_type_open profile__add-button"></button>
+                </section>
+
+                <section class="elements">
+                    <ul class="cards"></ul>
+                </section>
+            </main>
+
+            <template class="card-template">
+                <li id="cards__element" class="cards__element">
+                    <button aria-label="удалить карточку" type="button" class="button cards__delete"></button>
+                    <img class="cards__image button_type_open" alt="" src="#" />
+                    <div class="cards__group">
+                        <h2 class="cards__title"></h2>
+                        <button aria-label="поставить лайк" type="button" class="button cards__like"></button>
+                    </div>
+                </li>
+            </template>
+
+            <div id="popup-profile" class="popup"> 
+                <div class="popup__container"> 
+                    <button aria-label="закрыть окно" type="button" id="close-button-profile" class="button popup__close-button"></button> 
+                    <h2 class="popup__title">Редактировать профиль</h2> 
+                    <form id="popup-form-edit" class="popup__form"> 
+                        <input type="text" name="name" id="name-input" class="popup__input" required placeholder="Ваше имя" /> 
+                        <input type="text" name="description" id="description-input" class="popup__input" required placeholder="О себе" /> 
+                        <button type="submit" id="save-button" class="button popup__save-button">Сохранить</button> 
+                    </form> 
+                </div> 
+            </div> 
+
+            <div id="popup-card" class="popup"> 
+                <div class="popup__container "> 
+                    <button aria-label="закрыть окно" type="button" id="close-button-card" class="button popup__close-button"></button> 
+                    <h2 class="popup__title">Новое место</h2> 
+                    <form id="popup-form-add" class="popup__form"> 
+                        <input type="text" name="title" id="title-input" class="popup__input" required placeholder="Название" /> 
+                        <input type="url" name="link" id="link-input" class="popup__input" required placeholder="Ссылка на картинку" /> 
+                        <button type="submit" id="add-button" class="button popup__save-button">Создать</button> 
+                    </form> 
+                </div> 
+            </div> 
+
+            <div id="popup-description" class="popup popup_theme_dark">
+                <button aria-label="закрыть окно" type="button" id="close-button-image" class="button popup__close-button"></button>
+                <img class="popup__image" alt="" src="#" />
+                <p class="popup__caption" id="caption"></p>
+            </div>
+
+            <footer class="footer">
+                <p class="footer__copyright">© 2023 Mesto Russia</p>
+            </footer>
+        </div>
+    </body>
+</html>

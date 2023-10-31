@@ -1,0 +1,7 @@
+.popup_theme_dark::after {
+    content: "";
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+  }

@@ -1,0 +1,22 @@
+.profile__correct-button {
+    border: 1px solid #FFFFFF;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background-image: url(../../../images/pencil.svg);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  @media screen and (max-width: 680px) {
+    .profile__correct-button {
+      width: 18px;
+      height: 18px;
+      margin-top: 26px;
+    }
+  }
+  
+  .profile__correct-button:hover {
+    opacity: 0.6;
+  }
