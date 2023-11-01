@@ -6,10 +6,8 @@ export function openPopup(popupElement) {
 } 
 // Функция для ЗАКРЫТИЯ ВСЕХ ПОПАПОВ 
 export function closePopup(popupElement) {
-    if (popupElement) {
     popupElement.classList.remove("popup_opened");
     document.removeEventListener("keydown", handleEscClose);
-    }
     }
 // Функция для ЗАКРЫТИЯ ВСЕХ ПОПАПОВ по клавише ESC 
 export function handleEscClose(evt) { 

@@ -1,5 +1,6 @@
 import "./index.css";
-import { createCard, initialCards, deleteCard, likeCard, openPopupImage } from "../utils/card.js";
+import { createCard, deleteCard, likeCard, openPopupImage } from "../components/card.js";
+import { initialCards } from "../utils/cards.js";
 import { openPopup, closePopup, handleOverlayClose } from "../components/modal.js";
 
 // П Е Р Е М Е Н Н Ы Е (общее) 
@@ -24,6 +25,8 @@ const buttonClosePopupCard = document.querySelector("#close-button-card"); // К
 const formAddCard = document.querySelector("#popup-form-add"); // Форма добавления карточки 
 const cardContainer = document.querySelector(".cards"); //ul 
 const buttonClosePopupImage = document.querySelector("#close-button-image"); // Кнопка закрытия попапа добавления карточки 
+const linkInput = document.querySelector("#link-input"); 
+const titleInput = document.querySelector("#title-input"); 
 
 // Функция «отправки» формы редактирования профиля 
 function handleFormEditSubmit(evt) { 
@@ -56,12 +59,11 @@ function addCard(link, name) {
     const card = createCard(link, name, deleteCard, likeCard, openPopupImage); 
     cardContainer.prepend(card); 
 } 
+
 // Функция «отправки» формы добавления новой карточки 
 function handleFormAddSubmit(evt) { 
     evt.preventDefault(); 
-    const link = document.querySelector("#link-input"); 
-    const name = document.querySelector("#title-input"); 
-    addCard(link.value, name.value); 
+    addCard(linkInput.value, titleInput.value); 
     formAddCard.reset(); 
     closePopup(popupCard);
 } 
