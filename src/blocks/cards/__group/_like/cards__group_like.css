@@ -1,0 +1,9 @@
+.cards__group_like {
+    display: flex;
+    width: 22px;
+    height: 35px;
+    flex-direction: column;
+    padding: 0;
+    justify-content: space-between;
+    align-items: center;
+  }

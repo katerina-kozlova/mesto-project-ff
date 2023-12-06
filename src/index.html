@@ -13,13 +13,15 @@
             <main class="main">
                 <section class="profile">
                     <div class="profile__block">
-                        <div class="profile__avatar"></div>
+                        <div class="profile__avatar">
+                            <button aria-label="сменить аватар" type="button" class="button button_type_open profile__update-button"><img src="<%=require('./images/pencil.svg')%>" alt="кнопка редактирования аватара" class="profile__update-image" /></button>
+                        </div>
                         <div class="profile__info">
                             <div class="profile__top">
-                                <h1 class="profile__name">Катерина Козлова</h1>
+                                <h1 class="profile__name"></h1>
                                 <button aria-label="редактировать" type="button" class="button button_type_open profile__correct-button "></button>
                             </div>
-                            <p class="profile__description">Путешественник</p>
+                            <p class="profile__description"></p>
                         </div>
                     </div>
                     <button aria-label="добавить" type="button" class="button button_type_open profile__add-button"></button>
@@ -36,39 +38,77 @@
                     <img class="cards__image button_type_open" alt="" src="#" />
                     <div class="cards__group">
                         <h2 class="cards__title"></h2>
-                        <button aria-label="поставить лайк" type="button" class="button cards__like"></button>
+                        <div class="cards__group_like">
+                            <button aria-label="поставить лайк" type="button" class="button cards__like"></button>
+                            <span class="cards__counter" id="cards__counter"></span>
+                        </div>
                     </div>
                 </li>
             </template>
 
-            <div id="popup-profile" class="popup"> 
+            <div id="popup-profile" class="popup popup_profile"> 
                 <div class="popup__container"> 
                     <button aria-label="закрыть окно" type="button" id="close-button-profile" class="button popup__close-button"></button> 
                     <h2 class="popup__title">Редактировать профиль</h2> 
-                    <form id="popup-form-edit" class="popup__form"> 
-                        <input type="text" name="name" id="name-input" class="popup__input" required placeholder="Ваше имя" /> 
-                        <input type="text" name="description" id="description-input" class="popup__input" required placeholder="О себе" /> 
-                        <button type="submit" id="save-button" class="button popup__save-button">Сохранить</button> 
+                    <form id="popup-form-edit" class="form popup__form" novalidate> 
+                        <label class="form__field"> 
+                            <input type="text" minlength="2" maxlength="40" name="name" id="name-input" class="popup__input form__input" required placeholder="Ваше имя" /> 
+                            <span class="name-input-error form__input-error"></span> 
+                        </label> 
+                        <label class="form__field"> 
+                            <input type="text" minlength="2" maxlength="200" name="description" id="description-input" class="popup__input form__input" required placeholder="О себе" /> 
+                            <span class="description-input-error form__input-error"></span> 
+                        </label> 
+                        <button type="submit" id="save-button" class="button popup__save-button" disabled>Сохранить</button> 
                     </form> 
                 </div> 
             </div> 
-
-            <div id="popup-card" class="popup"> 
+ 
+            <div id="popup-card" class="popup popup_card"> 
                 <div class="popup__container "> 
                     <button aria-label="закрыть окно" type="button" id="close-button-card" class="button popup__close-button"></button> 
                     <h2 class="popup__title">Новое место</h2> 
-                    <form id="popup-form-add" class="popup__form"> 
-                        <input type="text" name="title" id="title-input" class="popup__input" required placeholder="Название" /> 
-                        <input type="url" name="link" id="link-input" class="popup__input" required placeholder="Ссылка на картинку" /> 
-                        <button type="submit" id="add-button" class="button popup__save-button">Создать</button> 
+                    <form id="popup-form-add" class="form popup__form" novalidate> 
+                        <label class="form__field"> 
+                            <input type="text" minlength="2" maxlength="30" name="name" id="title-input" class="popup__input form__input" required placeholder="Название" /> 
+                            <span class="title-input-error form__input-error"></span> 
+                        </label> 
+                        <label class="form__field"> 
+                            <input type="url" name="link" id="link-input" class="popup__input form__input" required placeholder="Ссылка на картинку" /> 
+                            <span class="link-input-error form__input-error"></span> 
+                        </label> 
+                        <button type="submit" id="add-button" class="button popup__save-button" disabled>Создать</button> 
                     </form> 
                 </div> 
-            </div> 
+            </div>
+
+            <div id="popup-confirm" class="popup popup_confirm">
+                <div class="popup__container ">
+                    <button aria-label="закрыть окно" type="button" id="close-button-confirm" class="button popup__close-button"></button>
+                    <h2 class="popup__title">Вы уверены?</h2>
+                    <button type="submit" id="yes-button" class="button popup__save-button">Да</button>
+                </div>
+            </div>
 
             <div id="popup-description" class="popup popup_theme_dark">
                 <button aria-label="закрыть окно" type="button" id="close-button-image" class="button popup__close-button"></button>
                 <img class="popup__image" alt="" src="#" />
                 <p class="popup__caption" id="caption"></p>
+            </div>
+
+            
+            <div id="popup-avatar" class="popup popup_avatar">
+                <div class="popup__container ">
+                    <button aria-label="закрыть окно" type="button" id="close-button-avatar" class="button popup__close-button"></button>
+                    <h2 class="popup__title">Обновить аватар</h2>
+                    <form id="popup-form-avatar" class="form popup__form" novalidate>
+                        <label class="form__field"> 
+                        <input type="url" name="link" id="link-input" class="popup__input form__input" required placeholder="Ссылка на фотографию" /> 
+                        <span class="link-input-error form__input-error"></span> 
+                    </label> 
+                    <button type="submit" id="add-button" class="button popup__save-button" disabled>Сохранить</button> 
+                    </form>
+                </div>
             </div>
 
             <footer class="footer">

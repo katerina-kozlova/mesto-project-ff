@@ -23,5 +23,3 @@ export function handleOverlayClose(evt) {
         closePopup(popupOpened); 
     } 
 } 
-
-
