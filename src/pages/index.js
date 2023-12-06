@@ -33,6 +33,8 @@ const buttonClosePopupCard = document.querySelector("#close-button-card");
 const formAddCard = document.querySelector("#popup-form-add");
 const cardContainer = document.querySelector(".cards"); //ul 
 const buttonClosePopupImage = document.querySelector("#close-button-image");
+const popupDelete = document.querySelector(".popup_confirm");
+const buttonClosePopupDelete = document.querySelector("#close-button-confirm");
 
 // Вызоваем валидацию
 enableValidation(validationConfig); 
@@ -63,7 +65,6 @@ buttonClosePopupImage.addEventListener("click", function () {
 allPopups.forEach((popup) => { 
     popup.addEventListener("mousedown", handleOverlayClose); 
 }); 
-// НОВЫЙ ПОПАП
 // Слушатель для ОТКРЫТИЯ И ЗАКРЫТИЯ попопа СМЕНЫ ФОТОГРАФИИ
 buttonOpenPopupAvatar.addEventListener("click", function () { 
   openPopup(popupAvatar); 
@@ -71,12 +72,15 @@ buttonOpenPopupAvatar.addEventListener("click", function () {
 buttonClosePopupAvatar.addEventListener("click", function () { 
   closePopup(popupAvatar);
 });
+// Слушатель для ЗАКРЫТИЯ попопа УДАЛЕНИЯ КАРТОЧКИ
+buttonClosePopupDelete.addEventListener("click", function () { 
+  closePopup(popupDelete);
+});
 
 function renderUser(user) {
   profileName.textContent = user.name;
   profileDescription.textContent = user.about;
   avatarElement.style.backgroundImage = `url(${user.avatar})`;
-
 }
 
 // Функция «отправки» формы обновления аватара
