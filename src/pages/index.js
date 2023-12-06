@@ -39,7 +39,6 @@ enableValidation(validationConfig);
 
 // Прикрепляем слушатель для ОТКРЫТИЯ И ЗАКРЫТИЯ попопа РЕДАКТИРОВАНИЯ ПРОФИЛЯ 
 buttonOpenPopupProfile.addEventListener("click", function () { 
-  saveButton.textContent = "Сохранить";
   openPopup(popupProfile); 
   clearValidation(formEditProfile, validationConfig);
   nameInput.value = profileName.textContent;  
@@ -73,17 +72,17 @@ buttonClosePopupAvatar.addEventListener("click", function () {
   closePopup(popupAvatar);
 });
 
-
-
 function renderUser(user) {
   profileName.textContent = user.name;
   profileDescription.textContent = user.about;
   avatarElement.style.backgroundImage = `url(${user.avatar})`;
+
 }
 
 // Функция «отправки» формы обновления аватара
 function handleFormEditAvatarSubmit(evt) { 
   evt.preventDefault();
+  saveButton.textContent = "Сохранить";
   const linkInput = formEditAvatar.querySelector("#link-input");
   const newAvatar = linkInput.value;
   avatarElement.style.backgroundImage = newAvatar;
@@ -101,6 +100,7 @@ formEditAvatar.addEventListener("submit", handleFormEditAvatarSubmit);
 // Функция «отправки» формы редактирования профиля 
 function handleFormEditSubmit(evt) { 
 evt.preventDefault();
+saveButton.textContent = "Сохранить";
 const name = nameInput.value;
 const about = jobInput.value;
 saveButton.textContent = "Сохранение...";
@@ -124,11 +124,12 @@ function renderCards(cards) {
 
 // Функция «отправки» формы добавления новой карточки 
 function handleFormAddSubmit(evt) { 
-  evt.preventDefault(); 
+  evt.preventDefault();
+  saveButton.textContent = "Создать";
   const linkInput = document.querySelector("#link-input"); 
   const titleInput = document.querySelector("#title-input"); 
-  createCardApi(titleInput.value, linkInput.value); 
   saveButton.textContent = "Сохранение...";
+  createCardApi(titleInput.value, linkInput.value); 
   formAddCard.reset(); 
   clearValidation(formAddCard, validationConfig); 
   closePopup(popupCard);

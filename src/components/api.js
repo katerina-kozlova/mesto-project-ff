@@ -19,7 +19,6 @@ export function getUserInfo() {
         })
         .then((data) => {
           const { name, about, avatar, _id } = data;
-          const userId = data._id;
         return { name, about, avatar, _id }; 
       })
         .catch((error) => {
@@ -111,7 +110,7 @@ export function createCardApi(name, link) {
         throw new Error('Не удалось создать карточку' + res.status);
       })
       .then((data) => {
-        const cardOwnerId = data.owner._id;
+        //const cardOwnerId = data.owner._id;
         const card = createCard(data, data.link, data.name, deleteCard, likeCard, openPopupImage, data.owner._id);
         const cardContainer = document.querySelector(".cards");
         cardContainer.prepend(card);
