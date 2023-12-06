@@ -21,4 +21,4 @@
 - возможность листать фотографии при открытом попапе  
 
 **Ссылка на сайт**  
-https://katerina-kozlova.github.io/mesto
+https://katerina-kozlova.github.io/mesto-project-ff
