@@ -17,9 +17,6 @@ export function getUserInfo() {
       authorization: token
     }
   })
-    .catch((error) => {
-      console.log(error);
-    });
 }
 // Редактирование профиля, обновление информации
 export function updateUserInfo(name, about) {

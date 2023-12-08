@@ -1,9 +1,11 @@
 import "./index.css";
-import { createCard, handleDeleteCard, likeCard } from "../components/card.js";
+import { createCard, likeCard } from "../components/card.js";
 import { openPopup, closePopup, handleOverlayClose } from "../components/modal.js";
 import { enableValidation, clearValidation } from "../components/validation.js";
-import { getUserInfo, updateUserInfo, getAllCards, createCardApi, editAvatar } from "../components/api.js";
+import { getUserInfo, updateUserInfo, getAllCards, createCardApi, editAvatar, deleteCardApi } from "../components/api.js";
 import { validationConfig } from "../components/utils/constants.js";
+
+let userId
 
 // П Е Р Е М Е Н Н Ы Е (общее) 
 const popupCard = document.querySelector("#popup-card");
@@ -36,6 +38,7 @@ const formAddCard = document.querySelector("#popup-form-add");
 const cardContainer = document.querySelector(".cards"); //ul 
 const buttonClosePopupImage = document.querySelector("#close-button-image");
 const popupDelete = document.querySelector(".popup_confirm");
+const buttonAgree = popupDelete.querySelector("#yes-button");
 const buttonClosePopupDelete = document.querySelector("#close-button-confirm");
 const buttonAddNewCard = document.querySelector('#add-button-card');
 
@@ -142,10 +145,32 @@ updateUserInfo(name, about)
 } 
 formEditProfile.addEventListener("submit", handleFormEditSubmit);
 
+// Функция удаления карточки
+function handleDeleteCardSubmit(evt) {
+  evt.preventDefault();
+  const cardId = popupDelete.dataset.cardId;
+  deleteCardApi(cardId)
+    .then(() => {
+      const card = document.querySelector(`[data-card-id="${cardId}"]`);
+      if (card) {
+        card.remove();
+      }
+      closePopup(popupDelete);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+function handleDeleteCard(card) {
+  openPopup(popupDelete);
+  popupDelete.dataset.cardId = card.dataset.cardId;
+}
+buttonAgree.addEventListener("click", handleDeleteCardSubmit);
+
 // Перебираем массив карточек и добавляем их в разметку
 function renderCards(cards) {
   cards.forEach((item) => {
-    const card = createCard(item, item.link, item.name, handleDeleteCard, likeCard, openPopupImage, item.owner._id);
+    const card = createCard(item, item.link, item.name, handleDeleteCard, likeCard, openPopupImage, userId);
     const cardCounterElement = card.querySelector('.cards__counter');
     cardCounterElement.textContent = item.likes.length;
     cardContainer.appendChild(card);
@@ -160,7 +185,7 @@ function handleFormAddSubmit(evt) {
   buttonAddNewCard.textContent = "Сохранение...";
   createCardApi(titleInput.value, linkInput.value)
   .then((data) => {
-    const card = createCard(data, data.link, data.name, handleDeleteCard, likeCard, openPopupImage, data.owner._id);
+    const card = createCard(data, data.link, data.name, handleDeleteCard, likeCard, openPopupImage, userId);
     const cardContainer = document.querySelector(".cards");
     cardContainer.prepend(card);
     closePopup(popupCard);
@@ -177,10 +202,10 @@ formAddCard.addEventListener("submit", handleFormAddSubmit);
 // Использование функций getUserInfo, getAllCards
 Promise.all([getUserInfo(), getAllCards()])
   .then(([userInfo, cards]) => {
-    renderCards(cards);
     renderUser(userInfo);
+    userId = userInfo._id;
+    renderCards(cards); 
   })
   .catch((error) => {
     console.log('Error:', error);
   });
-  

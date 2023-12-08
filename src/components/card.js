@@ -1,44 +1,8 @@
-import { openPopup, closePopup } from "./modal.js";
-import { deleteCardApi, likeCardPut, likeCardDelete, getUserInfo } from "../components/api.js";
-
-const popupDelete = document.querySelector(".popup_confirm");
-const buttonAgree = popupDelete.querySelector("#yes-button");
+import { likeCardPut, likeCardDelete } from "../components/api.js";
 
 export function getCardFromTemplate() {
     const cardTemplate = document.querySelector(".card-template");
     return cardTemplate.content.cloneNode(true).querySelector(".cards__element");
-}
-
-function handleDeleteCardSubmit(evt) {
-  evt.preventDefault();
-  const cardId = popupDelete.dataset.cardId;
-  deleteCardApi(cardId)
-    .then(() => {
-      const card = document.querySelector(`[data-card-id="${cardId}"]`);
-      if (card) {
-        card.remove();
-      }
-      closePopup(popupDelete);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-export function handleDeleteCard(card) {
-  openPopup(popupDelete);
-  popupDelete.dataset.cardId = card.dataset.cardId;
-  buttonAgree.addEventListener("click", handleDeleteCardSubmit);
-}
-
-function getUserId() {
-  return getUserInfo()
-    .then((userInfo) => {
-      const userId = userInfo._id;
-      return userId;
-    })
-    .catch((error) => {
-      console.log('Error:', error);
-    });
 }
 
 export function likeCard(cardId, evt) {  
@@ -56,11 +20,12 @@ export function likeCard(cardId, evt) {
 }
 
 // Добавление карточек из массива и кладем в UL 
-export function createCard(data, link, name, handleDeleteCard, likeCard, openPopupImage, cardOwnerId) { 
+export function createCard(data, link, name, handleDeleteCard, likeCard, openPopupImage, userId) { 
     const card = getCardFromTemplate();
     const cardImage = card.querySelector(".cards__image");
     const cardTitle = card.querySelector(".cards__title");
     const cardId = data._id;
+    const cardOwnerId = data.owner._id;
 
     card.dataset.cardId = data._id;
     cardImage.src = link; 
@@ -76,19 +41,13 @@ export function createCard(data, link, name, handleDeleteCard, likeCard, openPop
     }
 
     const deleteButton = card.querySelector(".cards__delete");
-    getUserId()
-    .then((userId) => {
-      if (cardOwnerId !== userId) {
-        deleteButton.remove();
-      } else {
-        deleteButton.addEventListener('click', () => {
-          handleDeleteCard(card);
-        });
-      }
-    })
-    .catch((error) => {
-      console.log('Error:', error);
-    });
+    if (cardOwnerId !== userId) { 
+      deleteButton.remove(); 
+    } else { 
+      deleteButton.addEventListener('click', () => { 
+        handleDeleteCard(card); 
+      }); 
+    } 
     
     cardImage.addEventListener("click", function () { 
         openPopupImage(link, name); 
